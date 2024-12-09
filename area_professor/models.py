@@ -84,6 +84,14 @@ class RespostaSimulado(models.Model):
     questao = models.ForeignKey(Questoes, on_delete=models.PROTECT)
     opcao = models.ForeignKey(Opcoes, on_delete=models.PROTECT)
     acertou = models.BooleanField(default=False)
-
+    
+    def __str__(self):
+        return (
+            f"{self.aluno.first_name} - "
+            f"Turma {self.turma.id if self.turma else 'Sem Turma'} - "
+            f"Questão: {self.questao.descricao[:50]} - "  
+            f"Opção: {self.opcao.descricao[:50]} - "
+            f"Acertou: {'Sim' if self.acertou else 'Não'}"
+        )
     # TODO: Criar metodo mágico ToString
     # Deve retornar aluno.first_name - turma.id - questa.descricao - opcao.descricao - acertou
