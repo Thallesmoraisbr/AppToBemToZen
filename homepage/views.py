@@ -8,12 +8,12 @@ def homepage_index(request):
 def homepage_cadastro(request):
     return render(request, 'homepage/cadastro.html')
 
-def homepage_logout(request):
-    if not request.user.is_authenticated:
-        return redirect('homepage_index')
-    
-    return redirect('login')
 
+def homepage_logout(request):
+    if request.user.is_authenticated:
+        logout(request)  
+    return redirect('login')
+    
 
 def homepage_forum(request):
     # TODO: Implementar a listagem das perguntas
