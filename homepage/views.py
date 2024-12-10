@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import logout
+from .models import ForumPergunta
+
 
 # Create your views here.
 def homepage_index(request):
@@ -16,10 +18,8 @@ def homepage_logout(request):
     
 
 def homepage_forum(request):
-    # TODO: Implementar a listagem das perguntas
-    # - Tabela contendo as colunas: ID | Pergunta | Cadastrado por | Ver
-    # Obs: Ver é a coluna com o link para ir para as respostas
-    perguntas = []
+    # Busca todas as perguntas no banco
+    perguntas = ForumPergunta.objects.all().order_by('-criado_em')
     return render(request, 'homepage/forum.html', {
         "perguntas": perguntas
     })
